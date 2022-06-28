@@ -1,11 +1,11 @@
-#include "tml/lexer/lexer.hpp"
+#include "tss/lexer/lexer.hpp"
 #include <algorithm>
 #include <iostream>
 #include <map>
 #include <regex>
 #define not_tab()   m_is_tab=false;
 
-namespace tml{
+namespace tss{
 namespace lexer{
 LEXER::LEXER(std::string input, std::string filename){
     m_input = input;
@@ -35,23 +35,14 @@ void LEXER::add_unknown(){
     TokenType type;
     std::map<std::string,TokenType> key_map={
         //sections
-        {"lua",tk_lua},
         {"content",tk_content},
-        {"style",tk_style},
-        {"title",tk_title},
         {"input",tk_input},
         {"embed",tk_embed},
-        //arguments
-        {"text",tk_text},
         {"id",tk_id},
-        {"path",tk_path},
-        {"type",tk_type},
-        //keyword
+        {"type",tk_type},//type of id
+        {"name",tk_name},//name of id
     };
-    if(m_keyword=="r" && (m_curr_item=='"'||m_curr_item=='\'')){
-        type=tk_raw;
-    }
-    else if (key_map.count(m_keyword) > 0) {
+    if (key_map.count(m_keyword) > 0) {
         type = key_map[m_keyword];
     }
     else if(m_keyword!=""){
@@ -241,6 +232,51 @@ void LEXER::lex(){
                             m_curr_index+1,
                             m_line,
                             tk_colon,
+                            m_tab_count
+                });
+                break;
+            }
+            case ',':{
+                not_tab();
+                add_unknown();
+                m_result.push_back(Token{
+                            m_loc,
+                            m_curr_line,
+                            std::string(1,m_curr_item),
+                            m_curr_index,
+                            m_curr_index+1,
+                            m_line,
+                            tk_comma,
+                            m_tab_count
+                });
+                break;
+            }
+            case '<':{
+                not_tab();
+                add_unknown();
+                m_result.push_back(Token{
+                            m_loc,
+                            m_curr_line,
+                            std::string(1,m_curr_item),
+                            m_curr_index,
+                            m_curr_index+1,
+                            m_line,
+                            tk_less,
+                            m_tab_count
+                });
+                break;
+            }
+            case '>':{
+                not_tab();
+                add_unknown();
+                m_result.push_back(Token{
+                            m_loc,
+                            m_curr_line,
+                            std::string(1,m_curr_item),
+                            m_curr_index,
+                            m_curr_index+1,
+                            m_line,
+                            tk_greater,
                             m_tab_count
                 });
                 break;

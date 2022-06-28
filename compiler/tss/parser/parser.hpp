@@ -1,13 +1,13 @@
-#ifndef __TML_PARSER_HPP__
-#define __TML_PARSER_HPP__
+#ifndef __tss_PARSER_HPP__
+#define __tss_PARSER_HPP__
 
-#include "tml/ast/ast.hpp"
+#include "tss/ast/ast.hpp"
 #include "errors/error.hpp"
-#include "tml/lexer/lexer.hpp"
+#include "tss/lexer/lexer.hpp"
 #include <map>
 #include <string>
 #include <vector>
-namespace tml{
+namespace tss{
 namespace parser{
 
 class Parser {

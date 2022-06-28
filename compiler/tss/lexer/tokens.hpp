@@ -1,33 +1,31 @@
-#ifndef __TML_TOKENS_HPP__
-#define __TML_TOKENS_HPP__
+#ifndef __tss_TOKENS_HPP__
+#define __tss_TOKENS_HPP__
 
 #include <string>
-namespace tml{
+namespace tss{
 namespace lexer{
 // Create a string variable
 enum TokenType {
     tk_eof, // end of file
     // Some sections
-    tk_lua,
     tk_content,
-    tk_style,
-    tk_title,
     tk_input,
     tk_embed,
-    //arguments
     tk_id,//id name
-    tk_text,//text
-    tk_path,//path to a file
-    tk_type,//input type
+    tk_type,//type of id
+    tk_name,//name of id
+    
     //symbol
     tk_colon,      // :
     tk_new_line,   // \n
+    tk_less,       // <
+    tk_greater, // >
+    tk_comma, // ,
 
     tk_ident,  // beginning of identation
     tk_dedent, // end of identation
 
     tk_string, // string
-    tk_raw,    // raw string i.e. r
 };
 
 struct Token {

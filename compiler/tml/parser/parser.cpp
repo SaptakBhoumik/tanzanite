@@ -109,6 +109,10 @@ AstNodePtr Parser::parseStatement() {
             stmt = parseInput();
             break;
         }
+        case tk_embed:{
+            stmt = parseEmbed();
+            break;
+        }
         default:{
             error(m_currentToken,"Unexpected token "+m_currentToken.keyword);
         }
@@ -184,6 +188,11 @@ AstNodePtr Parser::parseContent() {
                 m_currentToken.tkType=tk_new_line;
                 break;
             }
+            case tk_embed:{
+                args.push_back(parseEmbed());
+                m_currentToken.tkType=tk_new_line;
+                break;
+            }
             default:{
                 error(m_currentToken,"Invalid argument "+m_currentToken.keyword);
             }
@@ -204,6 +213,32 @@ AstNodePtr Parser::parseInput() {
         }
         switch (m_currentToken.tkType) {
             case tk_text:
+            case tk_type:
+            case tk_id:{
+                args.push_back(parseArgument());
+                break;
+            }
+            default:{
+                error(m_currentToken,"Invalid argument "+m_currentToken.keyword);
+            }
+        }
+    }
+    return std::make_shared<Section>(tok,args);
+}
+AstNodePtr Parser::parseEmbed() {
+    //embed
+    std::vector<AstNodePtr> args;
+    auto tok = m_currentToken;//on `embed`
+    expect(tk_colon,"Expected a : but got "+next().keyword+" instead","Add a : here","","");//on `:`
+    expect(tk_ident,"Expected an idented block but got "+next().keyword+" instead");//on `ident`
+    while(m_currentToken.tkType!=tk_dedent){
+        advance();
+        if(m_currentToken.tkType==tk_dedent){
+            break;
+        }
+        switch (m_currentToken.tkType) {
+            case tk_text:
+            case tk_path:
             case tk_type:
             case tk_id:{
                 args.push_back(parseArgument());
