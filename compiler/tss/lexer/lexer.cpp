@@ -38,6 +38,7 @@ void LEXER::add_unknown(){
         {"content",tk_content},
         {"input",tk_input},
         {"embed",tk_embed},
+        {"link",tk_link},
         {"id",tk_id},
         {"type",tk_type},//type of id
         {"name",tk_name},//name of id

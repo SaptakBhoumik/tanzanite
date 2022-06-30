@@ -123,6 +123,7 @@ AstNodePtr Parser::parseStyle() {
     switch(m_currentToken.tkType){
         case tk_content:
         case tk_input:
+        case tk_link:
         case tk_embed:{
             break;
         }

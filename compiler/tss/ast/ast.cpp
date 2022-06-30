@@ -58,8 +58,9 @@ std::string Section::stringify() const{
         {tk_content,"content"},
         {tk_input,"input"},
         {tk_embed,"embed"},
+        {tk_link,"link"},
     };
-    std::string res = "id<name:"+m_name+"type:"+lex_name[m_id_type]+">:\n";
+    std::string res = "id<name:"+m_name+",type:"+lex_name[m_id_type]+">:\n";
     for (auto& arg : m_args) {
         res += "\t"+arg->stringify()+"\n";
     }

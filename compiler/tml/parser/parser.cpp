@@ -113,6 +113,10 @@ AstNodePtr Parser::parseStatement() {
             stmt = parseEmbed();
             break;
         }
+        case tk_link:{
+            stmt = parseLink();
+            break;
+        }
         default:{
             error(m_currentToken,"Unexpected token "+m_currentToken.keyword);
         }
@@ -193,6 +197,11 @@ AstNodePtr Parser::parseContent() {
                 m_currentToken.tkType=tk_new_line;
                 break;
             }
+            case tk_link:{
+                args.push_back(parseLink());
+                m_currentToken.tkType=tk_new_line;
+                break;
+            }
             default:{
                 error(m_currentToken,"Invalid argument "+m_currentToken.keyword);
             }
@@ -250,6 +259,38 @@ AstNodePtr Parser::parseEmbed() {
         }
     }
     return std::make_shared<Section>(tok,args);
+}
+AstNodePtr Parser::parseLink() {
+    std::vector<AstNodePtr> args;
+    auto tok = m_currentToken;//on `link`
+    expect(tk_colon,"Expected a : but got "+next().keyword+" instead","Add a : here","","");//on `:`
+    expect(tk_ident,"Expected an identation but got "+next().keyword+" instead");//on `ident`
+    while(m_currentToken.tkType!=tk_dedent){
+        advance();
+        if(m_currentToken.tkType==tk_dedent){
+            break;
+        }
+        switch (m_currentToken.tkType) {
+            case tk_id:{
+                args.push_back(parseArgument());
+                break;
+            }
+            case tk_content:{
+                args.push_back(parseContent());
+                m_currentToken.tkType=tk_new_line;
+                break;
+            }
+            case tk_embed:{
+                args.push_back(parseEmbed());
+                m_currentToken.tkType=tk_new_line;
+                break;
+            }
+            default:{
+                error(m_currentToken,"Invalid argument "+m_currentToken.keyword);
+            }
+        }
+    }  
+    return std::make_shared<Section>(tok,args); 
 }
 }
 }

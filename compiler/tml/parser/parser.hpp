@@ -29,6 +29,7 @@ class Parser {
     ast::AstNodePtr parseTitle();
     ast::AstNodePtr parseInput();
     ast::AstNodePtr parseEmbed();
+    ast::AstNodePtr parseLink();
 
     ast::AstNodePtr parseArgument();
   public:

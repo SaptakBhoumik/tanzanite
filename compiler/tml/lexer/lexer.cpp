@@ -41,6 +41,7 @@ void LEXER::add_unknown(){
         {"title",tk_title},
         {"input",tk_input},
         {"embed",tk_embed},
+        {"link",tk_link},
         //arguments
         {"text",tk_text},
         {"id",tk_id},

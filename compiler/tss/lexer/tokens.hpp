@@ -11,6 +11,7 @@ enum TokenType {
     tk_content,
     tk_input,
     tk_embed,
+    tk_link,
     tk_id,//id name
     tk_type,//type of id
     tk_name,//name of id
