@@ -2,6 +2,7 @@
 #define __TML_OPT_CODE_HPP__
 #include <string>
 #include <vector>
+#include <map>
 namespace tml{
 namespace opt_code{
     enum optcode{
@@ -13,9 +14,14 @@ namespace opt_code{
         OPT_CONTENT=6,//content <id> <text> : ...rest of the nested elements
         OPT_LINK=7,//link <id> : ...rest of the nested elements
     };
-
+    enum argtype{
+        ARG_ID=0,
+        ARG_TYPE=1,
+        ARG_TEXT=2,
+        ARG_PATH=3,
+    };
     enum type_of_element{
-        //embede type
+        //embed type
         TYPE_IMG=0,
         TYPE_VIDEO=1,
         TYPE_AUDIO=2,
@@ -40,27 +46,43 @@ namespace opt_code{
         TYPE_URL=19,
         TYPE_WEEK=20,
     };
+    extern std::map<std::string, type_of_element> type_of_element_map;
+    extern std::map<type_of_element, std::string> type_of_element_to_string;
 }
 namespace tml_vm{
     enum type_of_code_block{
-        STRING,
-        TYPE,
-        NESTED
+        STRING=0,
+        TYPE=1,
+        NESTED=2,
     };
     struct opt;
+    struct code_elm;
     struct code_elm{
-        opt_code::type_of_element type;
+        type_of_code_block type;
+        opt_code::argtype arg_type;//if any
+        bool is_arg=false;
         union{
             opt_code::type_of_element elm_type;
-            std::string str;
+            struct{
+                char* str;
+                size_t len;
+            };
             std::vector<opt> nested_elements;
         };
         ~code_elm();
         code_elm(const code_elm& other);
+        code_elm(opt_code::type_of_element value);
+        code_elm(std::string value);
+        code_elm(std::vector<opt> value);
+        code_elm(opt_code::argtype arg, code_elm value);
+        void operator=(const code_elm& other);
     };
     struct opt{
         opt_code::optcode opt_code;
         std::vector<code_elm> args;
+        opt(opt_code::optcode opt_code,std::vector<code_elm> args);
+        opt(const opt& other);
+        void operator=(const opt& other);
     };
 }
 }
