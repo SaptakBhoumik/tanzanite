@@ -36,12 +36,14 @@ namespace dis{
                     break;
                 }
             }
-            for(auto& arg : opt.args){
+            //auto& arg : opt.args
+            for(size_t i=0;i<opt.list_size;i++){
+                auto arg = opt.args[i];
                 if(arg.is_arg){
                     switch(arg.arg_type){
                         case opt_code::ARG_ID:{
                             std::string str="";
-                            auto size=arg.len;
+                            auto size=arg.str_len;
                             for(size_t i=0;i<size;i++){
                                 str+=arg.str[i];
                             }
@@ -54,7 +56,7 @@ namespace dis{
                         }
                         case opt_code::ARG_TEXT:{
                             std::string str="";
-                            auto size=arg.len;
+                            auto size=arg.str_len;
                             for(size_t i=0;i<size;i++){
                                 str+=arg.str[i];
                             }
@@ -63,7 +65,7 @@ namespace dis{
                         }
                         case opt_code::ARG_PATH:{
                             std::string str="";
-                            auto size=arg.len;
+                            auto size=arg.str_len;
                             for(size_t i=0;i<size;i++){
                                 str+=arg.str[i];
                             }
@@ -73,7 +75,11 @@ namespace dis{
                     }
                 }
                 else{
-                    add_str("\t"+disassemble(arg.nested_elements,padding+"\t"));
+                    std::vector<tml_vm::opt> elements;
+                    for(size_t i=0;i<arg.list_size;i++){
+                        elements.push_back(arg.nested_elements[i]);
+                    }
+                    add_str("\t"+disassemble(elements,padding+"\t"));
                 }
             }
         }

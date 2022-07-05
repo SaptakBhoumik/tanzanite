@@ -65,9 +65,12 @@ namespace tml_vm{
             opt_code::type_of_element elm_type;
             struct{
                 char* str;
-                size_t len;
+                size_t str_len;
             };
-            std::vector<opt> nested_elements;
+            struct{
+                opt* nested_elements;
+                size_t list_size;
+            };
         };
         ~code_elm();
         code_elm(const code_elm& other);
@@ -79,11 +82,14 @@ namespace tml_vm{
     };
     struct opt{
         opt_code::optcode opt_code;
-        std::vector<code_elm> args;
+        code_elm* args;
+        size_t list_size;
         opt(opt_code::optcode opt_code,std::vector<code_elm> args);
         opt(const opt& other);
         void operator=(const opt& other);
     };
+    void clean_up(opt);
+    void clean_up(std::vector<opt>);
 }
 }
 #endif
