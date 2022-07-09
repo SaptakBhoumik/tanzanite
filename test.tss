@@ -1,0 +1,6 @@
+id<name:"*",type:content>:
+    "width":"199"
+    id<name:"name",type:content>:
+        "width":"199"
+    id<name:"namespace",type:link>:
+        "width":"199"

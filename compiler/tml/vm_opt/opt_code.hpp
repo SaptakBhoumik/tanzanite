@@ -27,23 +27,18 @@ namespace opt_code{
         TYPE_AUDIO=2,
 
         //input type        
-        TYPE_BUTTON=3,
-        TYPE_CHECKBOX=4,
+        TYPE_BUTTON=3,//
+        TYPE_CHECKBOX=4,//
         TYPE_COLOR=5,
         TYPE_DATE=6,
         TYPE_DATETIME_LOCAL=7,
-        TYPE_EMAIL=8,
         TYPE_FILE=9,
         TYPE_TIME=10,
-        TYPE_TEL=11,
-        TYPE_TEXT=12,
+        TYPE_TEXT=12,//
         TYPE_MONTH=13,
-        TYPE_NUMBER=14,
-        TYPE_PASSWORD=15,
+        TYPE_PASSWORD=15,//
         TYPE_RADIO=16,
-        TYPE_RANGE=17,
-        TYPE_RESET=18,
-        TYPE_URL=19,
+        TYPE_RANGE=17,//
         TYPE_WEEK=20,
     };
     extern std::map<std::string, type_of_element> type_of_element_map;
