@@ -1,4 +1,5 @@
 #include "renderer.hpp"
+#include <iostream>
 //TODO: handle id and responsiveness
 namespace tml{
 namespace renderer{
@@ -10,15 +11,14 @@ GtkWidget* Renderer::render(GtkApplication *app, gpointer data){
     m_window = gtk_application_window_new(app);
     gtk_widget_set_name(m_window, "tml_renderer");
     gtk_window_maximize (GTK_WINDOW(m_window));
-    m_box=gtk_box_new(GTK_ORIENTATION_HORIZONTAL,4);
-    gtk_widget_set_halign (m_box, GTK_ALIGN_START);
-    gtk_widget_set_valign (m_box, GTK_ALIGN_START);
-
-    gtk_window_set_child (GTK_WINDOW (m_window), m_box);
-    m_grid = gtk_grid_new();
-    gtk_box_append(GTK_BOX (m_box), m_grid);
-    gtk_widget_set_hexpand(m_grid, TRUE);
-    gtk_widget_set_vexpand(m_grid, TRUE);
+    m_grid=gtk_flow_box_new();
+    gtk_widget_set_valign (m_grid, GTK_ALIGN_START);
+    gtk_flow_box_set_min_children_per_line(GTK_FLOW_BOX(m_grid), 2);
+    auto scroll=gtk_scrolled_window_new();
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scroll), m_grid);
+    gtk_window_set_child (GTK_WINDOW (m_window), scroll);
+    
     for(auto& x:m_code){
         switch(x.opt_code){
             case OPT_TITLE:{
@@ -46,6 +46,7 @@ GtkWidget* Renderer::render(GtkApplication *app, gpointer data){
                         id_len=arg[i].str_len;
                     }
                 }
+                m_pos++;
                 render_input(type, text, len,id,id_len);
                 break;
             }
@@ -83,7 +84,6 @@ void Renderer::render_input(opt_code::type_of_element type,char* text, size_t te
         }
         default:{}
     }
-    row_col.second++;
 }
 void Renderer::set_window(GtkWidget *window){
     m_window=window;

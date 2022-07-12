@@ -12,7 +12,7 @@ void Renderer::render_button(char* text, size_t text_len,char* id, size_t id_len
             else{
                 gtk_widget_set_name(button, "tml_button");
             }
-            gtk_grid_attach(GTK_GRID(m_grid), button, row_col.second,row_col.first,1,1);
+            gtk_flow_box_insert(GTK_FLOW_BOX(m_grid), button,m_pos);
 }
 void Renderer::render_checkbox(char* text, size_t text_len,char* id, size_t id_len){
     GtkWidget *check=gtk_check_button_new();
@@ -25,7 +25,7 @@ void Renderer::render_checkbox(char* text, size_t text_len,char* id, size_t id_l
     else{
         gtk_widget_set_name(check, "tml_checkbox");
     }
-    gtk_grid_attach(GTK_GRID(m_grid), check, row_col.second,row_col.first,1,1);
+    gtk_flow_box_insert(GTK_FLOW_BOX(m_grid), check,m_pos);
 }
 void Renderer::render_date(char* id, size_t id_len){
     //TODO: implement date
@@ -36,7 +36,7 @@ void Renderer::render_date(char* id, size_t id_len){
     else{
         gtk_widget_set_name(cal, "tml_date");
     }
-    gtk_grid_attach(GTK_GRID(m_grid), cal, row_col.second,row_col.first,1,1);
+    gtk_flow_box_insert(GTK_FLOW_BOX(m_grid), cal,m_pos);
 }
 void Renderer::render_text_input(char* text, size_t text_len,char* id, size_t id_len){
     auto text_enter=gtk_entry_new();
@@ -49,7 +49,7 @@ void Renderer::render_text_input(char* text, size_t text_len,char* id, size_t id
     else{
         gtk_widget_set_name(text_enter, "tml_text");
     }
-    gtk_grid_attach(GTK_GRID(m_grid), text_enter, row_col.second,row_col.first,1,1);
+    gtk_flow_box_insert(GTK_FLOW_BOX(m_grid), text_enter,m_pos);
 }
 void Renderer::render_password(char* text, size_t text_len,char* id, size_t id_len){
     auto pass_enter=gtk_entry_new();
@@ -63,7 +63,7 @@ void Renderer::render_password(char* text, size_t text_len,char* id, size_t id_l
     else{
         gtk_widget_set_name(pass_enter, "tml_password");
     }
-    gtk_grid_attach(GTK_GRID(m_grid), pass_enter, row_col.second,row_col.first,1,1);
+    gtk_flow_box_insert(GTK_FLOW_BOX(m_grid), pass_enter,m_pos);
 }
 void Renderer::render_range(char* id, size_t id_len){
     auto range=gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL,0,1,0.001);
@@ -74,7 +74,7 @@ void Renderer::render_range(char* id, size_t id_len){
         gtk_widget_set_name(range, "tml_range");
     }
     gtk_widget_set_size_request(range, 200, -1);
-    gtk_grid_attach(GTK_GRID(m_grid), range, row_col.second,row_col.first,1,1);
+    gtk_flow_box_insert(GTK_FLOW_BOX(m_grid), range,m_pos);
 }
 }
 }

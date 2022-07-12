@@ -7,9 +7,10 @@ namespace tml{
 namespace renderer{
 class Renderer {
     std::vector<tml::tml_vm::opt> m_code;
+    int m_pos=0;
     GtkWidget *m_window;
-    GtkWidget *m_box;
     GtkWidget *m_grid;
+    GtkWidget *m_box;
     void render_input(opt_code::type_of_element, char*, size_t,char*, size_t);
     //Various input type
     void render_button(char*, size_t,char*, size_t);
@@ -19,7 +20,6 @@ class Renderer {
     void render_password(char*, size_t,char*, size_t);
     void render_range(char*, size_t);
 
-    std::pair<size_t,size_t> row_col={0,0};
     public:
     Renderer()=default;
     Renderer(std::vector<tml::tml_vm::opt> code);

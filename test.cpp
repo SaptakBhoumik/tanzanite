@@ -17,6 +17,10 @@ static void activate(GtkApplication *app, gpointer data){
                                GTK_STYLE_PROVIDER(cssProvider),
                                GTK_STYLE_PROVIDER_PRIORITY_USER);
     gtk_widget_show(y);
+        int width=0,height=0;
+    gtk_window_get_default_size(GTK_WINDOW(y),&width,&height);
+    std::cout<<height<<std::endl;
+    std::cout<<width<<std::endl;
 };
 int main(int    argc, char **argv){
     {
