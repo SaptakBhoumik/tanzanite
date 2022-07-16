@@ -11,15 +11,16 @@ class Renderer {
     GtkWidget *m_window;
     GtkWidget *m_grid;
     GtkWidget *m_box;
-    void render_input(opt_code::type_of_element, char*, size_t,char*, size_t);
+    void render_input(opt_code::type_of_element, char*, size_t,char*, size_t,GtkWidget*,int*);
     //Various input type
-    void render_button(char*, size_t,char*, size_t);
-    void render_checkbox(char*, size_t,char*, size_t);
-    void render_date(char*, size_t);
-    void render_text_input(char*, size_t,char*, size_t);
-    void render_password(char*, size_t,char*, size_t);
-    void render_range(char*, size_t);
+    void render_button(char*, size_t,char*, size_t,GtkWidget*,int*);
+    void render_checkbox(char*, size_t,char*, size_t,GtkWidget*,int*);
+    void render_date(char*, size_t,GtkWidget*,int*);
+    void render_text_input(char*, size_t,char*, size_t,GtkWidget*,int*);
+    void render_password(char*, size_t,char*, size_t,GtkWidget*,int*);
+    void render_range(char*, size_t,GtkWidget*,int*);
 
+    void render(std::vector<tml::tml_vm::opt>&,GtkWidget*,int*);
     public:
     Renderer()=default;
     Renderer(std::vector<tml::tml_vm::opt> code);
