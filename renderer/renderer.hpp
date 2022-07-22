@@ -19,7 +19,8 @@ class Renderer {
     void render_text_input(char*, size_t,char*, size_t,GtkWidget*,int*);
     void render_password(char*, size_t,char*, size_t,GtkWidget*,int*);
     void render_range(char*, size_t,GtkWidget*,int*);
-
+    //render Embeded
+    GtkWidget* renderEmbeded(char*,char*,size_t,opt_code::type_of_element);
     void render(std::vector<tml::tml_vm::opt>&,GtkWidget*,int*);
     public:
     Renderer()=default;

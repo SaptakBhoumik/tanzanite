@@ -6,3 +6,6 @@ button,entry,scale{
     background: #ffffff;
     color: #000;    
 }
+image{
+    -gtk-icon-size: 200px;
+}
